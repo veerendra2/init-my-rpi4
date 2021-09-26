@@ -1,0 +1,58 @@
+pip_package: python3-pip
+
+pkgs:
+  - "neofetch"
+  - "net-tools"
+  - "nginx"
+  - "iotop"
+  - "blktrace"
+  - "sysdig"
+  - "ethtool"
+  - "nmap"
+  - "socat"
+  - "bridge-utils"
+  - "conntrack"
+  - "python3-scapy"
+  - "wipe"
+  - "htop"
+  - "screen"
+  - "traceroute"
+  - "ssh"
+  - "secure-delete"
+  - "makepasswd"
+  - "pwgen"
+  - "tree"
+  - "macchanger"
+  - "unzip"
+  - "p7zip-full"
+  - "apt-transport-https"
+  - "ca-certificates"
+  - "gnupg"
+  - "curl"
+  - "wireless-tools"
+  - "openvpn"
+  - "python3-pip"
+  - "openssl"
+  - "aircrack-ng"
+  - "nmap"
+  - "hostapd"
+  - "dsniff"
+  - "yersinia"
+  - "kismet"
+  - "transmission-cli"
+
+pip_pkgs:
+  - "requests"
+  - "beautifulsoup4"
+  - "ansible"
+
+nordvpn_script: "https://downloads.nordcdn.com/apps/linux/install.sh"
+
+docker:
+  repo: "deb https://download.docker.com/linux/ubuntu {{ ansible_lsb['codename'] }} stable"
+  key: "https://download.docker.com/linux/ubuntu/gpg"
+
+tools:
+  nettools: "https://raw.githubusercontent.com/veerendra2/useless-scripts/master/tools/netTools.py"
+  ssid_list: "https://raw.githubusercontent.com/veerendra2/useless-scripts/master/tools/ssid_list.py"
+  deauth: "https://raw.githubusercontent.com/veerendra2/wifi-deauth-attack/master/deauth.py"

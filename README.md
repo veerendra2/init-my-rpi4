@@ -10,3 +10,7 @@ $ cd init-my-rpi4
 ## Update inventory file
 $ ansible-playbook -i inventory.yml init.yml
 ```
+
+
+#### Thanks
+* https://github.com/stefanprodan/dockprom

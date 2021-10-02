@@ -7,4 +7,4 @@ all:
       #ansible_ssh_password:
       ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
       extra_hosts:
-        - "at0m:192.168.0.130"
+        - "at0m:192.168.0.130" # Wifi Address

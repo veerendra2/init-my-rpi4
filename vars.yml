@@ -1,9 +1,10 @@
+rpi4_hostname: "at0m"
+
 pip_package: python3-pip
 
 pkgs:
   - "neofetch"
   - "net-tools"
-  - "nginx"
   - "iotop"
   - "blktrace"
   - "sysdig"

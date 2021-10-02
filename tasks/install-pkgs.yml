@@ -1,0 +1,30 @@
+---
+- name: Install Necessary Packges
+  apt:
+    name: "{{ pkgs }}"
+    state: latest
+    update_cache: yes
+  become: yes
+
+- name: Install Python Packges
+  pip:
+    name: "{{ pip_pkgs }}"
+  become: yes
+
+- name: Download tools/scripts
+  get_url:
+    url: "{{ item.value }}"
+    dest: "/usr/local/bin/"
+    mode: "0766"
+  loop: "{{ lookup('dict', tools) }}"
+  become: yes
+
+- name: Download nordvpn install script
+  get_url:
+    url: "{{ nordvpn_script }}"
+    dest: "/tmp/install.sh"
+    mode: "0766"
+
+- name: Install nordvpn
+  shell: "/tmp/install.sh > /tmp/nordvpn-install.log"
+  become: yes

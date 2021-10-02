@@ -1,0 +1,21 @@
+---
+- name: Create user 'mon'
+  user:
+    name: mon
+    shell: /bin/false
+    groups: docker
+    create_home: no
+    append: yes
+
+- name: Synchronize internet-monitoring directory.
+  synchronize:
+    src: monitoring/
+    dest: "/opt/monitoring/"
+    delete: false
+    recursive: true
+    perms: false
+
+- name: Ensure internet-monitoring environment is running.
+  docker_compose:
+    project_src: "/opt/monitoring/"
+    build: false

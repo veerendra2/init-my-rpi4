@@ -1,0 +1,40 @@
+---
+- name: Install nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: Copy configs
+  copy:
+    src: nginx/nginx.conf
+    dest: /etc/nginx/conf.d/nginx.conf
+
+- name: Copy home page
+  copy:
+    src: nginx/index.html
+    dest: /var/www/html/index.html
+
+- name: Disable default config
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+
+- name: Remove default html page
+  file:
+    path: /var/www/html/index.nginx-debian.html
+    state: absent
+
+- name: Create ssl dir
+  file:
+    path: /etc/nginx/ssl/
+    state: directory
+
+- name: Generating self-signed certificates
+  shell: |
+    openssl req -x509 -nodes -subj '/CN=at0m' -days 365 \
+    -newkey rsa:2048 -keyout /etc/nginx/ssl/server.key -out /etc/nginx/ssl/server.pem
+
+- name: Restart nginx
+  systemd:
+    name: nginx
+    state: reloaded

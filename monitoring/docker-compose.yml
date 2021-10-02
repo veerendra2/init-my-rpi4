@@ -3,6 +3,8 @@ version: '2.1'
 networks:
   monitor-net:
     driver: bridge
+  frontend-net:
+    driver: bridge
 
 volumes:
     prometheus_data: {}
@@ -27,6 +29,7 @@ services:
       - 9090
     networks:
       - monitor-net
+      - frontend-net
     labels:
       group: "monitoring"
 
@@ -35,17 +38,16 @@ services:
     container_name: grafana
     volumes:
       - grafana_data:/var/lib/grafana
-      - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
-      - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+      - ./grafana:/etc/grafana/
     environment:
       - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
       - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
       - GF_USERS_ALLOW_SIGN_UP=false
     restart: unless-stopped
-    port:
+    ports:
       - 127.0.0.1:3000:3000
     networks:
-      - monitor-net
+      - frontend-net
     labels:
       group: "monitoring"
 
@@ -70,7 +72,7 @@ services:
       group: "monitoring"
 
   cadvisor:
-    image: zcube/cadvisor:latest
+    image: zcube/cadvisor:latest    # For ARM
     container_name: cadvisor
     privileged: true
     devices:
@@ -88,6 +90,28 @@ services:
       - monitor-net
     labels:
       group: "monitoring"
+
+  ping:
+    tty: true
+    stdin_open: true
+    expose:
+      - 9115
+    image: prom/blackbox-exporter
+    restart: always
+    volumes:
+      - ./blackbox:/config/
+    command:
+      - '--config.file=/config/blackbox.yml'
+    networks:
+      - monitor-net
+
+  speedtest:
+    expose:
+      - 9798
+    image: miguelndecarvalho/speedtest-exporter
+    restart: always
+    networks:
+      - monitor-net
 
 #  pushgateway:
 #    image: prom/pushgateway:v1.4.1

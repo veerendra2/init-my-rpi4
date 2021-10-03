@@ -16,23 +16,30 @@
 
 - name: Disable default config
   file:
-    path: /etc/nginx/sites-enabled/default
+    path: "{{ item }}"
     state: absent
-
-- name: Remove default html page
-  file:
-    path: /var/www/html/index.nginx-debian.html
-    state: absent
+  with_items:
+    - /var/www/html/index.nginx-debian.html
+    - /etc/nginx/sites-enabled/default
 
 - name: Create ssl dir
   file:
     path: /etc/nginx/ssl/
     state: directory
 
+- name: Fetching ssl keys status
+  stat:
+    path: "{{ item }}"
+  register: output
+  with_items:
+    - /etc/nginx/ssl/server.key
+    - /etc/nginx/ssl/server.pem
+
 - name: Generating self-signed certificates
   shell: |
     openssl req -x509 -nodes -subj '/CN=at0m' -days 365 \
     -newkey rsa:2048 -keyout /etc/nginx/ssl/server.key -out /etc/nginx/ssl/server.pem
+  when: not output.results[0].stat.exists or not output.results[1].stat.exists
 
 - name: Restart nginx
   systemd:

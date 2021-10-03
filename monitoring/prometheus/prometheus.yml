@@ -40,7 +40,7 @@ scrape_configs:
       module: [http_2xx] # Look for a HTTP 200 response.
     file_sd_configs:
       - files:
-          - pinghosts.yaml
+          - pinghosts.yml
     relabel_configs:
       - source_labels: [__address__]
         regex: "(.*);(.*)" # first is the url, thus unique for instance

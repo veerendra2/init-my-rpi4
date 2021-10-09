@@ -1,7 +1,7 @@
 # Author: Veerendra Kakumanu
 # Description: An Ansible playbook to necessary packages on my RPi4
 
-- name: Init My RPi 4
+- name: Init My RPi4
   hosts: all
   gather_facts: yes
   become: yes
@@ -16,16 +16,17 @@
   #    ignore_errors: yes
   #    become: yes
 
-  post_tasks:
-    - name: Remove packages
-      apt:
-        name:
-          - golang
-        state: absent
-    - name: Run autoremove
-      apt:
-        autoremove: yes
-      become: yes
+  #  post_tasks:
+  #    - name: Remove packages
+  #      apt:
+  #        name:
+  #          - golang
+  #        state: absent
+  #
+  #    - name: Run autoremove
+  #      apt:
+  #        autoremove: yes
+  #      become: yes
 
   handlers:
     - name: Include handlers
@@ -35,10 +36,12 @@
     #- name: Install Packages
     #  import_tasks: tasks/install-pkgs.yml
 
-    #- name: Setup Nginx Proxy
-    #  import_tasks: tasks/nginx.yml
+    - name: Setup Nginx Proxy
+      import_tasks: tasks/nginx.yml
 
     #- name: Setup Docker
     #  import_tasks: tasks/docker.yml
-    - name: Setup Monitoring
-      import_tasks: tasks/monitoring.yml
+    #- name: Setup Monitoring
+    #  import_tasks: tasks/monitoring.yml
+    - name: Setup filebrowser server
+      import_tasks: tasks/filebrowser.yml

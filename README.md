@@ -24,7 +24,7 @@ Kanban Broards for this projects
 | Necessary Packages                                | :heavy_check_mark:       |        |
 | Prometheus + Grafana to monitor RPi4 and Internet | :heavy_check_mark:       |        |
 | Nginx reverse proxy config for containers         | :heavy_check_mark:       |        |
-| File Browser                                      | :heavy_multiplication_x: | WIP    |
+| File Browser                                      | :heavy_check_mark:       |        |
 | Pihole                                            | :heavy_multiplication_x: |        |
 | OpenWRT                                           | :heavy_multiplication_x: |        |
 | DuckDNS                                           | :heavy_multiplication_x: |        |

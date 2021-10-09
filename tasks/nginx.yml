@@ -41,7 +41,7 @@
     -newkey rsa:2048 -keyout /etc/nginx/ssl/server.key -out /etc/nginx/ssl/server.pem
   when: not output.results[0].stat.exists or not output.results[1].stat.exists
 
-- name: Restart nginx
+- name: Reload nginx
   systemd:
     name: nginx
     state: reloaded

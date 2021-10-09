@@ -17,6 +17,11 @@
   #    become: yes
 
   post_tasks:
+    - name: Remove packages
+      apt:
+        name:
+          - golang
+        state: absent
     - name: Run autoremove
       apt:
         autoremove: yes

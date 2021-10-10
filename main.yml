@@ -36,12 +36,12 @@
     #- name: Install Packages
     #  import_tasks: tasks/install-pkgs.yml
 
-    - name: Setup Nginx Proxy
-      import_tasks: tasks/nginx.yml
+    #- name: Setup Nginx Proxy
+    #  import_tasks: tasks/nginx.yml
 
     #- name: Setup Docker
     #  import_tasks: tasks/docker.yml
     #- name: Setup Monitoring
     #  import_tasks: tasks/monitoring.yml
-    - name: Setup filebrowser server
-      import_tasks: tasks/filebrowser.yml
+#    - name: Setup filebrowser server
+#      import_tasks: tasks/filebrowser.yml

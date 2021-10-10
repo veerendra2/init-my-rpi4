@@ -12,7 +12,7 @@
 
 - name: Copy docker-compose.yaml
   copy:
-    src: ./file-browser/docker-compose.yml
+    src: ./filebrowser/docker-compose.yml
     dest: /opt/filebrowser/docker-compose.yml
     owner: ubuntu
     group: ubuntu

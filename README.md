@@ -17,7 +17,7 @@ Kanban Broards for this projects
   This projects aims to install necessary packages and setup home server/router
 * [Evil Pi](https://github.com/veerendra2/init-my-rpi4/projects/2)
   
-  This project aims to RPi4 as a hacking tool kit
+  This project aims to make RPi4 as a hacking tool kit
 
 | Components                                        | Status                   | Remark |
 | ------------------------------------------------- | ------------------------ | ------ |
@@ -27,5 +27,5 @@ Kanban Broards for this projects
 | File Browser                                      | :heavy_check_mark:       |        |
 | Pihole                                            | :heavy_multiplication_x: |        |
 | OpenWRT                                           | :heavy_multiplication_x: |        |
-| DuckDNS                                           | :heavy_multiplication_x: |        |
+| DuckDNS                                           | :heavy_check_mark:       |        |
 | Home Assistant                                    | :heavy_multiplication_x: |        |

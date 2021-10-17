@@ -29,3 +29,5 @@ Kanban Broards for this projects
 | OpenWRT                                           | :heavy_multiplication_x: |        |
 | DuckDNS                                           | :heavy_check_mark:       |        |
 | Home Assistant                                    | :heavy_multiplication_x: |        |
+| Bittorrent with NordVPN                           | :heavy_check_mark:       |        |
+| NordVPN exporter                                  | :heavy_multiplication_x: |        |

@@ -1,0 +1,36 @@
+---
+- name: Synchronize monitoring directory.
+  synchronize:
+    src: monitoring/
+    dest: "/opt/monitoring/"
+    delete: false
+    recursive: true
+    perms: false
+
+- name: Ensure monitoring environment is running.
+  docker_compose:
+    project_src: "/opt/monitoring/"
+    build: false
+
+- name: Create directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    recurse: yes
+    owner: ubuntu
+    group: ubuntu
+  with_items:
+    - /media/filebrowser
+    - /opt/filebrowser/config
+
+- name: Copy docker-compose.yaml
+  copy:
+    src: ./filebrowser/docker-compose.yml
+    dest: /opt/filebrowser/docker-compose.yml
+    owner: ubuntu
+    group: ubuntu
+
+- name: docker-compose up
+  docker_compose:
+    project_src: "/opt/filebrowser/"
+    build: false

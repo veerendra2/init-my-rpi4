@@ -1,8 +1,8 @@
 ---
-- name: Synchronize monitoring directory.
+- name: Synchronize homer directory.
   synchronize:
     src: monitoring/
-    dest: "/opt/monitoring/"
+    dest: "/opt/homer/"
     delete: false
     recursive: true
     perms: false

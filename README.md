@@ -1,7 +1,11 @@
 ![GitHub](https://img.shields.io/badge/OS-Ubuntu%2020.04.3%20LTS-green)
 ![GitHub](https://img.shields.io/badge/Arch-arm64-green)
 # Init My RPi4
-A collection of tools to make RPi4 more powerful home server/router. 
+A collection of tools to make RPi4 awesome home server. 
+
+> :warning: This project is still under developement :construction_worker_man:
+
+![image](https://user-images.githubusercontent.com/8393701/139601021-2884d09e-b8e7-47eb-8a93-66e5047a36b0.png)
 
 ## Run
 ```
@@ -30,4 +34,16 @@ Kanban Broards for this projects
 | DuckDNS                                           | :heavy_check_mark:       |        |
 | Home Assistant                                    | :heavy_multiplication_x: |        |
 | Bittorrent with NordVPN                           | :heavy_check_mark:       |        |
-| NordVPN exporter                                  | :heavy_multiplication_x: |        |
+| NordVPN exporter                                  | :heavy_check_mark:       |        |
+
+## Shoutout :thumbsup:
+| Components                  | Status                                                                                          |
+| --------------------------- | ----------------------------------------------------------------------------------------------- |
+| Home Page                   | [bastienwirtz/homer](https://github.com/bastienwirtz/homer)                                     |
+| Web File Browser            | [filebrowser/filebrowser](https://github.com/filebrowser/filebrowser)                           |
+| NordVPN in Docker           | [bubuntux/nordvpn](https://github.com/bubuntux/nordvpn)                                         |
+| Internet Speedtest Exporter | [MiguelNdeCarvalho/speedtest-exporter](https://github.com/MiguelNdeCarvalho/speedtest-exporter) |
+| PiHole                      | [pi-hole/pi-hole](https://github.com/pi-hole/pi-hole)                                           |
+| Prometheus + Grafana        | [stefanprodan/dockprom](https://github.com/stefanprodan/dockprom)                               |
+| Internet Pi                 | [geerlingguy/internet-pi](https://github.com/geerlingguy/internet-pi)                           |
+| OpenWRT in Docker           | [oofnikj/docker-openwrt](https://github.com/oofnikj/docker-openwrt)                             |

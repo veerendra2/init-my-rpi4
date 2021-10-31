@@ -37,7 +37,7 @@ Kanban Broards for this projects
 | NordVPN exporter                                  | :heavy_check_mark:       |        |
 
 ## Shoutout :thumbsup:
-| Components                  | Status                                                                                          |
+| Components                  | Project                                                                                         |
 | --------------------------- | ----------------------------------------------------------------------------------------------- |
 | Home Page                   | [bastienwirtz/homer](https://github.com/bastienwirtz/homer)                                     |
 | Web File Browser            | [filebrowser/filebrowser](https://github.com/filebrowser/filebrowser)                           |

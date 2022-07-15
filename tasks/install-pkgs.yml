@@ -18,23 +18,10 @@
     mode: "0766"
   loop: "{{ lookup('dict', tools) }}"
   become: yes
-
-- name: Download nordvpn install script
-  get_url:
-    url: "{{ nordvpn_script }}"
-    dest: "/tmp/install.sh"
-    mode: "0766"
-
-- name: Install nordvpn
-  shell: "/tmp/install.sh > /tmp/nordvpn-install.log"
-  become: yes
-
 # https://github.com/FideliusFalcon/Bettercap-Install-Raspberry-Pi-
-- name: Build bettercap
-  shell: |
-    export GOPATH=$HOME/go  
-    export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
-    go get github.com/bettercap/bettercap
-    cd $GOPATH/src/github.com/bettercap/bettercap
-    make build  
-    sudo make install
+#- name: Build bettercap
+#  shell: |
+#    export GOPATH=$HOME/go
+#    export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+#    go get github.com/bettercap/bettercap
+#    cd $GOPATH/src/github.com/bettercap/bettercap && make build && sudo make install

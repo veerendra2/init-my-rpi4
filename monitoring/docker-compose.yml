@@ -1,25 +1,11 @@
 version: '3'
 
-networks:
-  internal-net:
-    #driver: bridge
-    internal: true
-  external-net:
-    ipam:
-      #driver: bridge
-      config:
-        - subnet: "10.11.0.0/24"
-
-volumes:
-  prometheus_data: {}
-  grafana_data: {}
-
 services:
   prometheus:
     image: prom/prometheus:v2.30.0
     container_name: prometheus
     volumes:
-      - ./monitoring/prometheus:/etc/prometheus
+      - ./prometheus:/etc/prometheus
       - prometheus_data:/prometheus
     command:
       - '--config.file=/etc/prometheus/prometheus.yml'
@@ -35,8 +21,8 @@ services:
     ports:
       - 127.0.0.1:9090:9090
     networks:
-      - external-net
-      - internal-net
+      - front-tier
+      - back-tier
     labels:
       group: "monitoring"
 
@@ -45,18 +31,20 @@ services:
     container_name: grafana
     volumes:
       - grafana_data:/var/lib/grafana
-      - ./monitoring/grafana:/etc/grafana/
-      - ./monitoring/grafana/images/:/usr/share/grafana/public/img/
+      - ./grafana:/etc/grafana/
+      - ./grafana/images/:/usr/share/grafana/public/img/
     env_file:
-      - ./monitoring/grafana/config.grafana
+      - ./grafana/config.grafana
     depends_on:
       - prometheus
     restart: unless-stopped
+    expose:
+      - 3000
     ports:
-      - 127.0.0.1:3000:3000
+      - 127.0.0.1:300:3000
     networks:
-      - internal-net
-      - external-net
+      - front-tier
+      - back-tier
     labels:
       group: "monitoring"
 
@@ -78,7 +66,7 @@ services:
     expose:
       - 9100
     networks:
-      - internal-net
+      - back-tier
     labels:
       group: "monitoring"
 
@@ -100,7 +88,7 @@ services:
     expose:
       - 8080
     networks:
-      - internal-net
+      - back-tier
     labels:
       group: "monitoring"
 
@@ -114,12 +102,12 @@ services:
     depends_on:
       - prometheus
     volumes:
-      - /opt/moniotring/blackbox:/config/
+      - ./blackbox:/config/
     command:
       - '--config.file=/config/blackbox.yml'
     networks:
-      - internal-net
-      - external-net
+      - front-tier
+      - back-tier
 
   speedtest:
     expose:
@@ -129,60 +117,15 @@ services:
     depends_on:
       - prometheus
     networks:
-      - internal-net
-      - external-net
+      - front-tier
+      - back-tier
 
-  duckdns:
-    image: lscr.io/linuxserver/duckdns
-    container_name: duckdns
-    environment:
-      - PUID=1000 #optional
-      - PGID=1000 #optional
-      - TZ=Europe/Berlin
-      - SUBDOMAINS=mydomain
-      - TOKEN=token
-      - LOG_FILE=false #optional
-    #    volumes:
-    #      - /path/to/appdata/config:/config #optional
-    restart: unless-stopped
-    networks:
-      - external-net
+networks:
+  front-tier:
+    external: true
+  back-tier:
+    external: true
 
-  filebrowser:
-    image: hurlenko/filebrowser
-    user: "${UID}:${GID}"
-    ports:
-      - 127.0.0.1:8081:8080
-    volumes:
-      - /media/filebrowser:/data
-      - /opt/filebrowser/config:/config
-    environment:
-      - FB_BASEURL=/filebrowser
-    restart: unless-stopped
-    networks:
-      - internal-net
-
-  web:
-    image: nginx:alpine
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
-    #    - /opt/nginx/ssl:/etc/nginx/ssl
-    ports:
-      - "80:80"
-    restart: unless-stopped
-    networks:
-      - internal-net
-
-  homer:
-    image: b4bz/homer:latest-amd64
-    container_name: homer
-    volumes:
-      - /your/local/assets/:/www/assets
-    environment:
-      - UID=1000
-      - GID=1000
-    expose:
-      - 8080
-    restart: unless-stopped
-    networks:
-      - internal-net
+volumes:
+  prometheus_data: {}
+  grafana_data: {}

@@ -1,23 +1,28 @@
 ---
+- name: Synchronize filebrowser directory
+  synchronize:
+    src: filebrowser/
+    dest: "/opt/filebrowser/"
+    delete: false
+    recursive: true
+    perms: false
+
+- name: Create networks
+  docker_network:
+    name: front-tier
+
 - name: Create directories
   file:
     path: "{{ item }}"
     state: directory
     recurse: yes
-    owner: ubuntu
-    group: ubuntu
+    owner: veeru
+    group: veeru
   with_items:
     - /media/filebrowser
     - /opt/filebrowser/config
 
-- name: Copy docker-compose.yaml
-  copy:
-    src: ./filebrowser/docker-compose.yml
-    dest: /opt/filebrowser/docker-compose.yml
-    owner: ubuntu
-    group: ubuntu
-
-- name: docker-compose up
+- name: Run docker-compose up
   docker_compose:
     project_src: "/opt/filebrowser/"
     build: false

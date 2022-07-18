@@ -1,8 +1,20 @@
 ---
-- name: Synchronize monitoring directory.
+- name: Synchronize monitoring directory
   synchronize:
     src: monitoring/
     dest: "/opt/monitoring/"
     delete: false
     recursive: true
     perms: false
+
+- name: Create networks
+  docker_network:
+    name: "{{ item }}"
+  with_items:
+    - front-tier
+    - back-tier
+
+- name: Run docker-compose up
+  docker_compose:
+    project_src: "/opt/monitoring/"
+    build: false

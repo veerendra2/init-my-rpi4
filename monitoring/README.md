@@ -13,3 +13,5 @@ $ cd init-my-rpi4
 $ cd monitoring
 $ docker-compose up -d
 ```
+## Ansible
+Refer [tasks/monitoring.yml](../tasks/monitoring.yml)

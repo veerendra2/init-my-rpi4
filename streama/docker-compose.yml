@@ -1,0 +1,37 @@
+version: '3'
+services:
+
+  nginx-proxy:
+  streama:
+    image: anapsix/alpine-java:8
+    volumes:
+    - ./streama.jar:/app/app.jar
+    - ./application.yml:/app/application.yml
+    - ./volumes/streama/uploads:/app/uploads
+    - ./volumes/streama/local-files:/app/local-files
+    working_dir: /app
+    command: java -jar app.jar
+    ports:
+    - "127.0.0.1:8080:8080"
+    depends_on:
+    - db
+    environment:
+    - VIRTUAL_HOST=streama.your-host.net
+    - VIRTUAL_PORT=8080
+    - LETSENCRYPT_HOST=streama.your-host.net
+    - LETSENCRYPT_EMAIL=you@gmail.com
+
+  db:
+    image: mariadb:10
+    volumes:
+    - ./volumes/db:/var/lib/mysql
+    restart: always
+    command: --max_allowed_packet=256M --innodb_log_buffer_size=32M --innodb_buffer_pool_size=128M
+    environment:
+    - MYSQL_ROOT_PASSWORD=INSERT_SEC_PASSWORD
+    - MYSQL_DATABASE=streama
+    - MYSQL_USER=streama
+    - MYSQL_PASSWORD=INSERT_ANOTHER_SEC_PASSWORD
+    ports:
+      - 127.0.0.1:3306:3306
+

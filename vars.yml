@@ -1,4 +1,4 @@
-rpi4_hostname: "at0m"
+rpi4_hostname: "atom"
 
 pip_package: python3-pip
 
@@ -7,7 +7,6 @@ pkgs:
   - "net-tools"
   - "iotop"
   - "blktrace"
-  - "sysdig"
   - "ethtool"
   - "nmap"
   - "socat"
@@ -38,8 +37,6 @@ pkgs:
   - "nmap"
   - "hostapd"
   - "dsniff"
-  - "yersinia"
-  - "kismet"
   - "transmission-cli"
   - "libpcap-dev"
   - "libusb-1.0-0"
@@ -49,6 +46,9 @@ pkgs:
   - "gettext"
   - "dhcpcd5"
   - "isc-dhcp-server"
+
+snaps:
+  - ngrok
 
 pip_pkgs:
   - "requests"

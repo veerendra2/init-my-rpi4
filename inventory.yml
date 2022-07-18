@@ -1,10 +1,10 @@
 all:
   hosts:
-    at0m:
+    atom:
       ansible_ssh_port: 22
       ansible_ssh_host: 192.168.0.120
-      ansible_ssh_user: ubuntu
+      ansible_ssh_user: veeru
       #ansible_ssh_password:
       ansible_ssh_common_args: "-o StrictHostKeyChecking=no"
       extra_hosts:
-        - "at0m:192.168.0.130" # Wifi Address
+        - "atom:192.168.0.130" # Wifi Address

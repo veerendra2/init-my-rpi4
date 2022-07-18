@@ -1,47 +1,31 @@
 ---
-- name: Install nginx
-  apt:
-    name: nginx
-    state: present
-
-- name: Copy configs
-  copy:
-    src: nginx/nginx.conf
-    dest: /etc/nginx/conf.d/nginx.conf
-
-- name: Copy home page
-  copy:
-    src: nginx/index.html
-    dest: /var/www/html/index.html
-
-- name: Disable default config
-  file:
-    path: "{{ item }}"
-    state: absent
-  with_items:
-    - /var/www/html/index.nginx-debian.html
-    - /etc/nginx/sites-enabled/default
-
-- name: Create ssl dir
-  file:
-    path: /etc/nginx/ssl/
-    state: directory
+- name: Synchronize monitoring directory.
+  synchronize:
+    src: nginx/
+    dest: "/opt/nginx/"
+    delete: false
+    recursive: true
+    perms: false
 
 - name: Fetching ssl keys status
   stat:
     path: "{{ item }}"
   register: output
   with_items:
-    - /etc/nginx/ssl/server.key
-    - /etc/nginx/ssl/server.pem
+    - /opt/nginx/ssl/server.key
+    - /opt/nginx/ssl/server.pem
 
-- name: Generating self-signed certificates
+- name: Generating self-signed certificates if required
   shell: |
     openssl req -x509 -nodes -subj '/CN=at0m' -days 365 \
-    -newkey rsa:2048 -keyout /etc/nginx/ssl/server.key -out /etc/nginx/ssl/server.pem
+    -newkey rsa:2048 -keyout /opt/nginx/ssl/server.key -out /opt/nginx/ssl/server.pem
   when: not output.results[0].stat.exists or not output.results[1].stat.exists
 
-- name: Reload nginx
-  systemd:
-    name: nginx
-    state: reloaded
+- name: Create networks
+  docker_network:
+    name: front-tier
+
+- name: Run docker-compose up
+  docker_compose:
+    project_src: "/opt/nginx/"
+    build: false

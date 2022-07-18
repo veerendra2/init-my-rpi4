@@ -1,8 +1,17 @@
 ---
 - name: Synchronize homer directory.
   synchronize:
-    src: monitoring/
+    src: homer/
     dest: "/opt/homer/"
     delete: false
     recursive: true
     perms: false
+
+- name: Create networks
+  docker_network:
+    name: front-tier
+
+- name: Run docker-compose up
+  docker_compose:
+    project_src: "/opt/homer/"
+    build: false

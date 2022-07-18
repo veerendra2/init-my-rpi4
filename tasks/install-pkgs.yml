@@ -4,12 +4,17 @@
     name: "{{ pkgs }}"
     state: latest
     update_cache: yes
-  become: yes
+  become: true
+
+- name: Install Snap Packages
+  snap:
+    name: "{{ snaps }}"
+    classic: yes
 
 - name: Install Python Packges
   pip:
     name: "{{ pip_pkgs }}"
-  become: yes
+  become: true
 
 - name: Download tools/scripts
   get_url:
@@ -17,7 +22,16 @@
     dest: "/usr/local/bin/"
     mode: "0766"
   loop: "{{ lookup('dict', tools) }}"
-  become: yes
+  become: true
+
+- name: Download dotfiles install script
+  get_url:
+    url: https://raw.githubusercontent.com/veerendra2/dotfiles/master/install.sh
+    dest: /tmp/install-dotfiles.sh
+    mode: 0775
+
+- name: Run dotfiles install script
+  command: /tmp/install-dotfiles.sh
 # https://github.com/FideliusFalcon/Bettercap-Install-Raspberry-Pi-
 #- name: Build bettercap
 #  shell: |

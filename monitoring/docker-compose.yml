@@ -1,8 +1,18 @@
 version: '3'
 
+networks:
+  front-tier:
+    external: true
+  back-tier:
+    external: true
+
+volumes:
+  prometheus_data: {}
+  grafana_data: {}
+
 services:
   prometheus:
-    image: prom/prometheus:v2.30.0
+    image: prom/prometheus:v2.37.0
     container_name: prometheus
     volumes:
       - ./prometheus:/etc/prometheus
@@ -18,8 +28,8 @@ services:
     restart: unless-stopped
     expose:
       - 9090
-    ports:
-      - 127.0.0.1:9090:9090
+    #ports:
+    #  - 127.0.0.1:9090:9090
     networks:
       - front-tier
       - back-tier
@@ -27,7 +37,7 @@ services:
       group: "monitoring"
 
   grafana:
-    image: grafana/grafana:8.1.5
+    image: grafana/grafana:9.0.3
     container_name: grafana
     volumes:
       - grafana_data:/var/lib/grafana
@@ -40,8 +50,8 @@ services:
     restart: unless-stopped
     expose:
       - 3000
-    ports:
-      - 127.0.0.1:300:3000
+    #ports:
+    #  - 127.0.0.1:300:3000
     networks:
       - front-tier
       - back-tier
@@ -49,7 +59,7 @@ services:
       group: "monitoring"
 
   nodeexporter:
-    image: prom/node-exporter:v1.2.2
+    image: prom/node-exporter:v1.3.1
     container_name: nodeexporter
     volumes:
       - /proc:/host/proc:ro
@@ -97,7 +107,7 @@ services:
     stdin_open: true
     expose:
       - 9115
-    image: prom/blackbox-exporter
+    image: prom/blackbox-exporter:v0.21.1
     restart: always
     depends_on:
       - prometheus
@@ -119,13 +129,3 @@ services:
     networks:
       - front-tier
       - back-tier
-
-networks:
-  front-tier:
-    external: true
-  back-tier:
-    external: true
-
-volumes:
-  prometheus_data: {}
-  grafana_data: {}

@@ -47,6 +47,9 @@ pkgs:
   - "dhcpcd5"
   - "isc-dhcp-server"
 
+snaps:
+  - ngrok
+
 pip_pkgs:
   - "requests"
   - "beautifulsoup4"

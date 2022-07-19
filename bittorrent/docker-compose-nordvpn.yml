@@ -1,0 +1,32 @@
+version: '3'
+
+networks:
+  front-tier:
+    external: true
+
+services:
+  vpn:
+    image: ghcr.io/bubuntux/nordvpn
+    hostname: nordvpn_at0m
+    cap_add:
+      - NET_ADMIN # Required
+    environment:
+      # Review https://github.com/bubuntux/nordvpn#environment-variables
+      - USER=example_email # Required
+      - "PASS=passw0rd" # Required
+      - CONNECT=United_States
+      - CYBER_SEC=enable
+      - FIREWALL=enable
+      - TECHNOLOGY=NordLynx
+      - NETWORK=192.168.0.0/24,172.26.0.0/16 # So it can be accessed within the local network
+    expose:
+      - 8082 # Bittorent site
+      - 8080 # Exporter
+    networks:
+      - front-tier
+
+  torrent:
+    image: ghcr.io/linuxserver/qbittorrent
+    network_mode: service:vpn
+    depends_on:
+      - vpn

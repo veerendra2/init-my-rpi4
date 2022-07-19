@@ -1,0 +1,8 @@
+---
+- name: Synchronize monitoring directory.
+  synchronize:
+    src: bittorrent/
+    dest: "/opt/bittorrent/"
+    delete: false
+    recursive: true
+    perms: false

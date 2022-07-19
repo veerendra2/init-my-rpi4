@@ -32,6 +32,7 @@ Kanban Broards for this projects
 | DuckDNS                                           | :heavy_multiplication_x: |        |
 | Home Assistant                                    | :heavy_multiplication_x: |        |
 | Bittorrent with Tor                               | :heavy_multiplication_x: |        |
+| Next Cloud                                        | :heavy_multiplication_x: |        |
 
 
 ## Shoutout :thumbsup:

@@ -1,9 +1,11 @@
 ![GitHub](https://img.shields.io/badge/Ubuntu%2022.04%20LTS-green)
-![GitHub](https://img.shields.io/badge/Arch-arm64-green)
-# Init My RPi4
-A collection of tools to make RPi4 awesome home server. 
+![GitHub](https://img.shields.io/badge/arm64-green)
+# Init My Raspberry Pi
+A collection of tools to make Raspberry Pi awesome home server. 
 
 ![image](https://user-images.githubusercontent.com/8393701/139601021-2884d09e-b8e7-47eb-8a93-66e5047a36b0.png)
+
+* [Ubuntu installation tips](https://github.com/veerendra2/init-my-rpi4/wiki/Ubuntu-Server-Installation-Tips)
 
 ## Run
 ```
@@ -32,7 +34,6 @@ Kanban Broards for this projects
 | DuckDNS                                           | :heavy_multiplication_x: |        |
 | Home Assistant                                    | :heavy_multiplication_x: |        |
 | Bittorrent with Tor                               | :heavy_multiplication_x: |        |
-| Next Cloud                                        | :heavy_multiplication_x: |        |
 
 
 ## Shoutout :thumbsup:

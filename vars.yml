@@ -46,6 +46,10 @@ pkgs:
   - "gettext"
   - "dhcpcd5"
   - "isc-dhcp-server"
+  - "golang"
+  - "git"
+  - "libusb-1.0-0-dev"
+  - "libnetfilter-queue-dev"
 
 snaps:
   - ngrok

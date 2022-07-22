@@ -16,6 +16,11 @@
     path: /opt/ngrok
     state: directory
 
+- name: Generate ngrok config
+  template:
+    src: templates/ngrok.yml.j2
+    dest: /opt/ngrok/ngrok.yml
+
 - name: Copy systemd unit file
   copy:
     src: files/ngrok.service
@@ -79,3 +84,22 @@
     groups: docker
     append: true
   become: true
+
+- name: Build and install bettercap
+  shell: |
+    go env -w GO111MODULE=off
+    go get -u github.com/bettercap/bettercap
+    mv go/bin/bettercap /usr/local/bin/
+    rm -rf go
+    bettercap -version
+  ignore_errors: true
+  register: output
+
+- name: Display bettercap version
+  debug:
+    msg: "{{ output.stdout }}"
+  when: output.rc == 0
+
+- name: Install bettercap caplets
+  shell: bettercap -eval "caplets.update; ui.update; q"
+  ignore_errors: true

@@ -30,9 +30,6 @@
     - name: Install Packages
       import_tasks: tasks/install-pkgs.yml
 
-    - name: Setup Docker
-      import_tasks: tasks/docker.yml
-
     - name: Setup Monitoring
       import_tasks: tasks/monitoring.yml
 
